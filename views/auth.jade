@@ -1,0 +1,18 @@
+extends ./head.jade
+append stylesheets
+  link(rel='stylesheet', href='/stylesheets/home/output.css')
+
+append content
+  #signin
+    h1 signin
+    input(placeholder='username').username
+    input(placeholder='password').password
+    button go
+    
+  #signup
+    h1 signup
+    input(placeholder='username').username
+    input(placeholder='password').password
+    button go
+
+//input(type='text', placeholder=' Search The Met community!')
