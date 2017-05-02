@@ -7,18 +7,25 @@ var router = express.Router();
 
 */
 
-router.get('/', function(req, res) {
-    res.render('dev')
+router.get('/request', function(req, res) {
+  require('./requestCom')(req, res)
 })
 
-router.get('/createJam', function(req, res) {
-  require('./createJam')(req, res)
-});
+router.post('/accept', function(req, res) {
+  require('./acceptCom')(req, res)
+})
 
-router.post('/acceptInvite', function(req, res) {
-  //require('./')(req, res)
-});
+router.post('/create', function(req, res) {
+  require('./createCom')(req, res)
+})
 
+router.post('/addDeliverable', function(req, res) {
+  require('./addDeliverable')(req, res)
+})
+
+router.post('/removeDeliverable', function(req, res) {
+  require('./addDeliverable')(req, res)
+})
 
 
 module.exports = router;
