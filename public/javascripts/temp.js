@@ -41,14 +41,13 @@ $(document).ready(function() {
     });
   })
 
-  $('#createJam button').click(function() {
+  $('#newCommission button').click(function() {
     console.log('test')
     $.ajax({
       type : 'POST',
-      url : 'https://ethanchandler.com/auth/signin',
+      url : '../commissions',
       data: JSON.stringify({
-        username : $('#signin input.username').val(),
-        password : $('#signin input.password').val()
+        client: $('#signin input.username').val(),
       }),
       contentType: "application/json; charset=UTF-8",
       success: function(res) {
