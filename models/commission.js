@@ -3,9 +3,12 @@ var Schema = mongoose.Schema;
 
 var commissionSchema = new Schema({
   deliverables : [{
-    date : Date,
-    partition : Boolean,
-    description : String
+    type: Schema.Types.ObjectId,
+    ref: 'deliverable'    
+  }],
+  devs: [{
+    type: Schema.Types.ObjectId,
+    ref: 'dev'
   }],
   payment : Boolean,
   client : {

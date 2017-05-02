@@ -8,8 +8,7 @@ module.exports = function(req, res) {
 
   Commission.findOne({ _id : req.body.jamId }, function(err, jamSession) {
     if(err) return errorHandler.mongo(err)
-
-
+    
   })
   
   
