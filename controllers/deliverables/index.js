@@ -7,8 +7,8 @@ var router = express.Router();
 
 */
 
-router.post('/accept', function(req, res) {
-  require('./accept')(req, res)
+router.post('/claim', function(req, res) {
+  require('./claim')(req, res)
 })
 
 router.post('/add', function(req, res) {

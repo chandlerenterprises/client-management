@@ -1,11 +1,10 @@
-var moment = require('momentum')
-
+/*global models*/
+var moment = require('moment')
 var errorHandler = require(global.base+'/middleware/errorHandler')
-var Dev = require('../models/dev')
 
 module.exports = function(req, res) {
   
-  Dev.findOne({ _id : res.userId }).select('-password').populate({
+  models[res.locals.userType].findOne({ _id : res.userId }).select('-password').populate({
     path : 'commissions'
   }).exec(function(err, dev) {
     

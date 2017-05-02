@@ -20,6 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('./middleware/res'))
+app.use(require('./middleware/jwtHandler'))
 app.use('/', require('./controllers/index'));
 
 // catch 404 and forward to error handler

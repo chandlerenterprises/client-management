@@ -1,7 +1,6 @@
 var jwt = require('jwt-simple');
 
-var secrets = require(global.base+'/config/secrets.json');
-var authentication = require(global.base+'/config/authentication.json');
+var authentication = require(global.base+'/config/auth.json');
 
 module.exports = function(req, res, next) {
   var error, decoded, authenticated
@@ -17,7 +16,7 @@ module.exports = function(req, res, next) {
     if(!token || token.length == 0 || token == 'undefined') error = 'no token provided';
     else {
       try {
-        decoded = jwt.decode(token, authentication.tokenNames.main.secret);
+        decoded = jwt.decode(token, authentication.secretJWTKey);
         if(global.serverSessionId != decoded.serverSessionId || decoded.exp <= Date.now()) {
           error = 'session expired';
         }
@@ -27,20 +26,13 @@ module.exports = function(req, res, next) {
   }
 
   if(error && error !== 'no token provided') {
-    return res.render('bounce', {
-      bounce : {
-        clear : true,
-        msg : error,
-        redirectURL : '/home/'
-      }
-    })
+    return res.error(error);
   }
   
   if(decoded) {
     authenticated = true;
-    res.locals['username'] = decoded.iss;
-    res.locals['decodedToken'] = decoded;
-    res.locals['advisoryId'] = decoded.advisoryId;
+    res.locals['userId'] = decoded.iss;
+    res.locals['userType'] = decoded.userType;
   }
   
   res.locals['authenticated'] = authenticated;

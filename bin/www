@@ -26,7 +26,7 @@ var server = http.createServer(app);
 var mongoose = require('mongoose');
 //var io = require('./sockets/parentSockets.js').listen(server);
 
-global.mongo = mongoose.connect('mongodb://myUserAdmin:fuckWalruses42@45.63.14.251:27017/admin');
+global.mongo = mongoose.connect(require('../config/auth.json').mongoLogin);
 require('./cache')()
 
 /**

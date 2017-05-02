@@ -11,7 +11,7 @@ router.post('/signin', function(req, res) {
   require('./signin')(req, res)
 })
 
-router.post('/signup', function(req, res) {
+router.post('/signup/:userType', function(req, res) {
   require('./signup')(req, res)
 })
 

@@ -5,14 +5,12 @@ $(document).ready(function() {
     console.log('test')
     $.ajax({
       type : 'POST',
-      url : 'https://ethanchandler.com/auth/signup',
+      url : 'https://ethanchandler.com/auth/signup/dev',
       data: JSON.stringify({
         email : 'ethan.chandler@metmail.org',
-        username : $('#signup input.username').val(),
-        password : $('#signup input.password').val(),
-        lat : '000',
-        lon : '000',
-        age : '17'
+        firstName : $('#signup input.firstName').val(),
+        lastName : $('#signup input.lastName').val(),
+        password : $('#signup input.password').val()
       }),
       contentType: "application/json; charset=UTF-8",
       success: function(res) {

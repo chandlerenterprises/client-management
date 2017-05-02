@@ -9,7 +9,12 @@ var async = require('async');
 
 module.exports = function() {
   global.serverSessionId = crypto.randomBytes(20).toString('hex');
-
+  global.models = {
+    dev : require(global.base+'/models/dev'),
+    client : require(global.base+'/models/client'),
+    commission : require(global.base+'/models/commission'),
+    deliverable : require(global.base+'/models/deliverable')
+  }
 /*
   global.serverSessionId = crypto.randomBytes(20).toString('hex');
   global.advisors = [], global.students = [], global.advisories = {}

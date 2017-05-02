@@ -12,5 +12,5 @@ var clientSchema = new Schema({
   }]
 });
 
-var clientModel = mongoose.model('client', clientSchema);
+var clientModel = mongoose.model('dev', clientSchema);
 module.exports = clientModel;
