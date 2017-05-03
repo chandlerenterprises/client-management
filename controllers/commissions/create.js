@@ -19,7 +19,7 @@ module.exports = function(req, res) {
     
     if (!client) return res.error('This client doesnt exist on zoht!')
     
-    Commission.create(req.body, function(err, client) { // change to individual keys
+    Commission.create(req.body, function(err, results) { // change to individual keys
       if (err) return errorHandler.mongo(err)
       res.success()
     })

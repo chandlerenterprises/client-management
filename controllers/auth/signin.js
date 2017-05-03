@@ -9,8 +9,8 @@ var authentication = require(global.base+'/config/authentication.json')
 module.exports = function(req, res) {
 
   User.findOne({ email : req.body.email.toLowerCase() }, function(err, user) {
+    
     if (err) return errorHandler.mongo(err)
-
     if (!user) return res.error('This account doesnt exist')
     if (!Bcrypt.compareSync(req.body.password, user.password)) {
       return res.error('incorrect password')
@@ -19,11 +19,13 @@ module.exports = function(req, res) {
     var expires = moment().add(2, 'hours').valueOf(), redirectURL, bounceMsg;
     var token = JWT.encode({
       serverSessionId : global.serverSessionId,
-      iss : user._id,
+      userId : user._id,
+      email : user.email,
+      name : user.name,
       exp : expires
     }, authentication.tokenNames.main.secret)
     
-    res.success('Logged in!', token)
+    res.success('Logged in!', { token : token, exp : expires })
 
   });
   

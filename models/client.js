@@ -4,11 +4,20 @@ var Schema = mongoose.Schema;
 var clientSchema = new Schema({
   email: String,
   companyName: String,
-  firstName: String,
-  lastName : String,
+  name : {
+    first : String,
+    last : String
+  },
   password: String,
   ip: String,
-  commissions : Object // something
+  requests : [{
+    type: Schema.Types.ObjectId,
+    ref: 'requests'
+  }],
+  commissions : [{
+    type: Schema.Types.ObjectId,
+    ref: 'commission'
+  }]
 });
 
 var clientModel = mongoose.model('client', clientSchema);

@@ -1,16 +1,22 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var clientSchema = new Schema({
+var devSchema = new Schema({
   email: String,
-  firstName: String,
-  lastName : String,
-  password: String,
-  commissions: [{
-    type: Schema.Types.ObjectId,
-    ref: 'deliverable'    
+  name : {
+    first : String,
+    last : String
+  },
+  password : String,
+  commissions : [{
+    type : Schema.Types.ObjectId,
+    ref : 'deliverable'
+  }],
+  requests : [{
+    type : Schema.Types.ObjectId,
+    ref : 'request'
   }]
 });
 
-var clientModel = mongoose.model('dev', clientSchema);
-module.exports = clientModel;
+var devModel = mongoose.model('dev', devSchema);
+module.exports = devModel;

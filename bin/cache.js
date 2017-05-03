@@ -8,6 +8,11 @@ var crypto = require("crypto");
 var async = require('async');
 
 module.exports = function() {
+  global.sockets = {
+    admins : [],
+    clients : [],
+    guests : []
+  }
   global.serverSessionId = crypto.randomBytes(20).toString('hex');
   global.models = {
     dev : require(global.base+'/models/dev'),

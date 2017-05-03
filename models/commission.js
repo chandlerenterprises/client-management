@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var commissionSchema = new Schema({
   deliverables : [{
     type: Schema.Types.ObjectId,
-    ref: 'deliverable'    
+    ref: 'deliverable'
   }],
   devs: [{
     type: Schema.Types.ObjectId,
@@ -17,5 +17,5 @@ var commissionSchema = new Schema({
   }
 });
 
-var studentModel = mongoose.model('commission', commissionSchema);
-module.exports = studentModel;
+var commissionModel = mongoose.model('commission', commissionSchema);
+module.exports = commissionModel;

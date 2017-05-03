@@ -27,7 +27,9 @@ var mongoose = require('mongoose');
 //var io = require('./sockets/parentSockets.js').listen(server);
 
 global.mongo = mongoose.connect(require('../config/auth.json').mongoLogin);
+
 require('./cache')()
+require('./sockets/index')(server)
 
 /**
  * Listen on provided port, on all network interfaces.
