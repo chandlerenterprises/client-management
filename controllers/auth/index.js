@@ -7,7 +7,7 @@ var router = express.Router();
 
 */
 
-router.post('/signin', function(req, res) {
+router.post('/signin/:userType', function(req, res) {
   require('./signin')(req, res)
 })
 

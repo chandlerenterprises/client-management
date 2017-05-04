@@ -8,26 +8,23 @@ var crypto = require("crypto");
 var async = require('async');
 
 module.exports = function() {
-  global.sockets = {
-    admins : [],
-    clients : [],
-    guests : []
-  }
-  global.serverSessionId = crypto.randomBytes(20).toString('hex');
+
   global.models = {
     dev : require(global.base+'/models/dev'),
     client : require(global.base+'/models/client'),
     commission : require(global.base+'/models/commission'),
     deliverable : require(global.base+'/models/deliverable')
   }
-/*
-  global.serverSessionId = crypto.randomBytes(20).toString('hex');
-  global.advisors = [], global.students = [], global.advisories = {}
-  
-  global.models = {
-    student : require(global.base+'/models/student'),
-    advisor : require(global.base+'/models/advisor'),
-    advisory : require(global.base+'/models/advisory')
+
+  global.sockets = {
+    devs : [],
+    clients : [],
+    guests : []
   }
-*/
+
+  global.serverSessionId = crypto.randomBytes(20).toString('hex');
+  global.expiredTokens = []
+  
+  console.log(global.sockets)
+  
 }

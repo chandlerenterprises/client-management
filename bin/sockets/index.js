@@ -6,9 +6,10 @@ module.exports = function(server) {
 
   io.on('connection', function(socket) {
     
-    socket.on('store session', function(msg) {
-      jwtHandler({ socket : socket, token : msg.token })
+    socket.on('store socket session', function(token) {
+      jwtHandler.socketio(socket, token)
     })
+    
   })
 
 }
