@@ -7,7 +7,6 @@ var authentication = require(global.base+'/config/auth.json')
 var async = require('async')
 
 module.exports = function(req, res) {
-  console.log('test')
   var userType = req.params.userType.toLowerCase()
   var model;
 
@@ -15,7 +14,6 @@ module.exports = function(req, res) {
   else return res.error('invalid user type')
   
   model.findOne({ email : req.body.email.toLowerCase() }, function(err, user) {
-    
     if (err) return errorHandler.mongo(err)
     if (!user) return res.error('This account doesnt exist')
     if (!Bcrypt.compareSync(req.body.password, user.password)) {
@@ -31,7 +29,8 @@ module.exports = function(req, res) {
       email : user.email,
       name : user.name,
       exp : expires,
-      admin : false
+      admin : false,
+      authenticated: false
     }
     
     for(var a in admins) {
@@ -39,7 +38,6 @@ module.exports = function(req, res) {
     }
     
     token = JWT.encode(token, authentication.secretJWTKey)
-    
     res.success('Logged in!', { token : token, exp : expires })
   });
   

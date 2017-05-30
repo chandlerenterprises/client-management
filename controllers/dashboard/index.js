@@ -8,7 +8,7 @@ var router = express.Router();
 */
 
 router.get('/', function(req, res) {
-  require('./loadDev')(req, res)
+  require('../commissions/load')(req, res)
 })
 
 

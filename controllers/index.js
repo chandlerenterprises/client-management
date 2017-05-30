@@ -9,9 +9,10 @@ var router = express.Router();
 
 router.use('/auth/', require('./auth'));
 router.use('/dashboard/', require('./dashboard'));
-router.use('/commissions/', require('./commissions'));
+router.use('/commission/', require('./commissions'));
+router.use('/deliverable/', require('./deliverables'));
 
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
   res.render('dev')
 })
 

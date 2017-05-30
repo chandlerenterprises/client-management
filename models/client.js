@@ -12,12 +12,11 @@ var clientSchema = new Schema({
   ip: String,
   requests : [{
     type: Schema.Types.ObjectId,
-    ref: 'requests'
+    ref: 'request'
   }],
-  commissions : [{
-    type: Schema.Types.ObjectId,
-    ref: 'commission'
-  }]
+  commissions : {
+    invites : [{ type: Schema.Types.ObjectId, ref: 'commission' }]
+  }
 });
 
 var clientModel = mongoose.model('client', clientSchema);

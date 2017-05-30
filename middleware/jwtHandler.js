@@ -7,25 +7,24 @@ exports.express = function(req, res, next) {
 
   if(req && req.headers.cookie) { //checks both cookies and body for JWT
     var cookies = req.headers.cookie.split(';')
-
     if(cookies[0]) {
       for(var a in cookies) {
         var cookie = cookies[a].split('=');
-        if(cookie[0] == 'JWT') token = cookie[1];
+        if(cookie[0] == 'JWT' || cookie[0] == ' JWT') {
+          token = cookie[1]
+        }
       }
     }
-    
-    if(!token && req.body.token) token = req.body.token
   }
+
+  if(!token && req.body.token) token = req.body.token
   
   handler(token, function(error, decoded) {
-    if(error && error !== 'no token provided') return res.error(error) //signout, redirect to 404 page
-    if(!decoded) decoded = {}
-
-    res.locals = Object.assign(decoded, { authenticated : decoded })
+    if(error && error !== 'no token provided' && req.path !== '/auth') return res.redirect('/auth')
+    if(!decoded) res.locals.authenticated = false
+    else decoded.authenticated = true, res.locals = decoded
     next()
   })
-
 }
 
 exports.socketio = function(socket, token) {
@@ -46,8 +45,6 @@ function handler(token, cb) {
   else {
     try {
       decoded = jwt.decode(token, authentication.secretJWTKey); //this is what would trigger catch
-      
-      console.log(decoded)
       
       if(!decoded.admin) {
         if(global.serverSessionId != decoded.serverSessionId || decoded.exp <= Date.now()) error = 'session expired';

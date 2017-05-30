@@ -1,0 +1,110 @@
+extends ./head.jade
+
+append stylesheets
+  link(rel='stylesheet', href='/stylesheets/commission/output.css')
+  link(rel='stylesheet', href='/stylesheets/progressBar/output.css')
+
+append content
+  .commissionId(data-id='#{_id}')
+  #details.paper
+    .container
+      .title
+        h1 #{title}
+      .note
+        .title
+          h3 description:
+        .edit
+          h6 edit
+          i.btb.bt-pencil
+        .body
+          h4 #{desc}
+            
+      .note
+        .title
+          h3 client request:
+        .edit
+          h6 edit
+          i.btb.bt-pencil
+        .body
+          h4 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt 
+            | ut laoreet dolore magna aliquam erat volutpat. 
+
+      .note
+        .title
+          h3 client request:
+        .edit
+          h6 edit
+          i.btb.bt-pencil
+        .body
+          h4 Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt 
+            | ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci 
+            | tation ullamcorper suscipit lobortis nisl ut ali
+
+    #payment
+      
+  #contributers
+    .client
+    .divider
+      i.btb.bt-code
+      .dev
+        h3 #{creator.email}
+    .invite
+      i.btb.bt-plus
+    //
+      .divider
+        i.fa.fa-paint-brush
+      .invite
+        i.btb.bt-plus
+  #deliverables
+    .container
+      if deliverables[0]
+        #controller
+          #search.dropShadow
+            i.btb.bt-search
+            input(placeholder='Search ...')
+            i.btb.bt-plus.close
+            #newDeliverable
+              h6 New deliverable
+              i.btb.bt-plus.dropShadow
+        each deliverable in deliverables
+          .deliverable.inactive
+      else
+        h3 you have no deliverables
+        #controller
+          #newDeliverable
+            h6 New deliverable
+            i.btb.bt-plus.dropShadow
+          #saveDeliverable
+            h6 New deliverable
+            i.btb.bt-check.dropShadow
+        .deliverable.new
+
+          .title
+            h6 title
+          i.btb.bt-lock
+          br
+          input#checkin(type='text', placeholder='start date').startDate
+          input#checkout(type='text', placeholder='due date').dueDate
+          textarea(placeholder='description of deliverable').new
+
+      #newDeliverablePage
+        .close
+          i.btb.bt-plus
+        h2 New deliverable
+        input#checkin(type='text', placeholder='start date').startDate
+        input#checkout(type='text', placeholder='due date').dueDate
+        br
+        input(placeholder='partition').partition
+        input(placeholder='description').desc
+        button go?
+                
+        //
+          h2 New deliverable
+          input(placeholder='due date').dueDate
+          input(id="datetimepicker" type="text")
+          input(placeholder='partition').partition
+          input(placeholder='description').desc
+          button go?
+        
+    //img(src="/images/client.jpg").client
+    //img(src="/images/dev").dev

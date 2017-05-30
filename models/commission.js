@@ -2,6 +2,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var commissionSchema = new Schema({
+  title : String,
+  payment : Boolean,
+  desc : String,
   deliverables : [{
     type: Schema.Types.ObjectId,
     ref: 'deliverable'
@@ -10,11 +13,14 @@ var commissionSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'dev'
   }],
-  payment : Boolean,
-  client : {
+  clients : [{
     type: Schema.Types.ObjectId,
     ref: 'client'
-  }
+  }],
+  creator : {
+    type: Schema.Types.ObjectId,
+    ref: 'dev'
+  },
 });
 
 var commissionModel = mongoose.model('commission', commissionSchema);

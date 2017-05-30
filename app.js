@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(require('./middleware/cssToSass')); //uncomment when deving scss
 app.use(require('./middleware/res'))
 app.use(require('./middleware/jwtHandler').express)
 app.use('/', require('./controllers/index'));

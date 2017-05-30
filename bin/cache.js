@@ -13,7 +13,8 @@ module.exports = function() {
     dev : require(global.base+'/models/dev'),
     client : require(global.base+'/models/client'),
     commission : require(global.base+'/models/commission'),
-    deliverable : require(global.base+'/models/deliverable')
+    deliverable : require(global.base+'/models/deliverable'),
+    request : require(global.base+'/models/request')
   }
 
   global.sockets = {

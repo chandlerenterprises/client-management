@@ -8,7 +8,7 @@ var deliverableSchema = new Schema({
     completed : Date
   },
   partition : Boolean,
-  description : String,
+  desc : String,
   devs : Array,
   commission: {
     type: Schema.Types.ObjectId,

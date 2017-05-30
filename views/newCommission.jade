@@ -1,0 +1,17 @@
+extends ./head.jade
+append stylesheets
+  link(rel='stylesheet', href='')
+
+append content
+  #newCommission
+    #clients
+      each client in clients
+        h3(data-id='#{client._id}')= client.email
+    #devs
+      each dev in devs
+        h3(data-id='#{dev._id}')= dev.email
+    input(placeholder='title').title
+    input(placeholder='payment').payment
+    input(placeholder='desc').desc
+    
+    button go

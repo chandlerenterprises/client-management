@@ -8,10 +8,10 @@ var devSchema = new Schema({
     last : String
   },
   password : String,
-  commissions : [{
-    type : Schema.Types.ObjectId,
-    ref : 'deliverable'
-  }],
+  commissions : {
+    created : [{ type: Schema.Types.ObjectId, ref: 'commission' }],
+    invites : [{ type: Schema.Types.ObjectId, ref: 'commission' }]
+  },
   requests : [{
     type : Schema.Types.ObjectId,
     ref : 'request'

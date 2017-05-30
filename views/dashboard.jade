@@ -1,0 +1,32 @@
+extends ./head.jade
+append stylesheets
+  link(rel='stylesheet', href='/stylesheets/dashboard/output.css')
+
+append content
+
+  h3 #{email}
+  h3 #{userType}
+  
+  hr
+  
+  h2 invites :  
+  if commissions.invites[0]
+    each invite in commissions.invites
+      h3 invite.title
+  else 
+    h3 no invites
+    
+  h2 created : 
+  if commissions.created[0]
+    each created in commissions.created
+      a(href='/commission/load/'+created._id)= created.title 
+      br
+  else
+    h3 you haven't created any commissions
+  
+  hr
+  
+  if userType == 'dev'
+    a(href='/commission/new') new commission
+  else
+    a(href='/commission/request') request commission
