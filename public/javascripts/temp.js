@@ -24,7 +24,7 @@ $(document).ready(function() {
 	$('#search input').focus(function() {
 
     if(!searchActive) {
-      $('#newDeliverable').hide()
+      $('.newDeliverable').hide()
       $('#search').animate({'width' : '100%'}, 'slow', false, function() {
         $('#search .close').show()
         $('#search i.bt-search').addClass('hatch')
@@ -49,7 +49,7 @@ $(document).ready(function() {
     if(searchActive) {
       $('#search .close').hide()
       $('#search').animate({'width' : '40%'}, 'slow', false, function() {
-        $('#newDeliverable').show()
+        $('.newDeliverable').show()
         $('#search i.bt-search').removeClass('hatch')
         setTimeout(function() {
           searchActive = false;
@@ -74,33 +74,10 @@ $(document).ready(function() {
     devs.push($(this).data('id'))
   })
 
-  $('#newDeliverablePage button').click(function() {
-    console.log($('.commissionId').data('id'))
-    $.ajax({
-      type : 'POST',
-      url : 'https://ethanchandler.com/deliverable/add',
-      data : JSON.stringify({
-        dates : {
-          start: $('#newDeliverablePage input.startDate').val(),
-          due: $('#newDeliverablePage input.dueDate').val()
-        },
-        partition : $('#newDeliverablePage input.partition').val(),
-        desc : $('#newDeliverablePage input.desc').val(),
-        _id : $('.commissionId').data('id')
-      }),
-      contentType: "application/json; charset=UTF-8",
-      success: function(res) {
-        console.log(res)
-        if(res.success) window.location.replace('/commission/load/'+res.data._id)
-        
-      }
-    });
-  })
-
   $('#newCommission button').click(function() {
     $.ajax({
       type : 'POST',
-      url : 'https://ethanchandler.com/commission/add',
+      url : 'https://ethanchandler.com/commission/create',
       data : JSON.stringify({
         clients : clients,
         devs : devs,
@@ -117,55 +94,87 @@ $(document).ready(function() {
     });
   })
 
-  $('#newDeliverablePage .close').click(function() {
-    $('#deliverables #content').show()
-    $('#deliverables #controller').show()
-
-    $('#newDeliverablePage').hide()
-  })
-
   var newDeliverableActive;
 
-  $('#newDeliverable, #saveDeliverable').click(function() {
+  $('.newDeliverable, .saveDeliverable, .deleteNewDeliverable').click(function() {
     if(!newDeliverableActive) {
-      $('#deliverables .container').append("<div class='deliverable'></div>")
-      $('#newDeliverable').hide()
-      $('#saveDeliverable').show()
+      $('.newDeliverable').hide()
+      $('.saveDeliverable').show()
+      $('.deleteNewDeliverable').show()
+      $('#deliverables .deliverable.new').show()
+
       newDeliverableActive = true;
     } else {
-      console.log('hit')
       //ajax call right here
-      $('#newDeliverable').show()
-      $('#saveDeliverable').hide()
+      $('.newDeliverable').show()
+      $('.saveDeliverable').hide()
+      $('.deleteNewDeliverable').hide()
+
+      $('#deliverables .deliverable.new').hide()
 
       newDeliverableActive = false
     }
   })
 
-  $('#checkin').datetimepicker({
-    onShow: function(ct){
-      this.setOptions({
-        minDate: new Date()
-      });
-    },
-    format: 'DD.MM.YYYY',
-    formatDate: 'DD.MM.YYYY',
-    datepicker: true,
-    timepicker: false
-  });
-
-  $('#checkout').datetimepicker({
-    onShow: function(ct){
-      this.setOptions({
-        minDate: $('#checkin').val() ? $('#checkin').val() : new Date()
-      });
-    },
-    format: 'DD.MM.YYYY',
-    formatDate: 'DD.MM.YYYY',
-    datepicker: true,
-    timepicker: false
-  });
-
+  $('.saveDeliverable').click(function() {
+    var dates = {
+      start: $('#checkin').datepicker('getDate') / 1000,
+      due: $('#checkout').datepicker('getDate') / 1000
+    }
+    
+    $.ajax({
+      type : 'POST',
+      url : 'https://ethanchandler.com/deliverable/new',
+      data : JSON.stringify({
+        dates : dates,
+        title : $('.deliverable.new input.title').val(),
+        partition : $('.deliverable.new input.partition').val(),
+        desc : $('.deliverable.new textarea').val(),
+        claimable : false,
+        _id : $('.commissionId').data('id')
+      }),
+      contentType: "application/json; charset=UTF-8",
+      success: function(res) {
+        console.log(res)
+        var results = res.data.results;
+        if(res.success) $('#deliverables .container').append(
+          '<div class="deliverable inactive" data-id='+results._id+'>'+
+            '<h3> title: '+ results.title +'</h3>'+
+            '<h3> title: '+ results.dates.start +'</h3>'+
+            '<h3> title: '+ results.dates.due +'</h3>'+
+            '<h3> title: '+ results.desc +'</h3>'+
+            '<div class="deleteDeliverable">'+
+            '<i class="btb bt-trash"></i>'+
+            '</div>'+
+          '</div>'
+        )
+      }
+    });
+  })
   
+  $(document).on('click', '.deleteDeliverable', function() {
+    var deliverable = $(this).parent()
+    $.ajax({
+      type : 'POST',
+      url : 'https://ethanchandler.com/deliverable/delete',
+      data : JSON.stringify({
+        deliverable_id : deliverable.data('id'),
+        commission_id : $('.commissionId').data('id')
+      }),
+      contentType: "application/json; charset=UTF-8",
+      success: function(res) {
+        if(res.success) deliverable.remove()
+
+      }
+    });
+  })
+
+  $("#checkin").datepicker({
+    dateFormat: 'dd-mm-yy',
+  });
+
+  $("#checkout").datepicker({
+    dateFormat: 'dd-mm-yy',
+  });
 })
 

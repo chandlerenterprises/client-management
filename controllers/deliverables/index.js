@@ -11,12 +11,12 @@ router.post('/claim', function(req, res) {
   require('./claim')(req, res)
 })
 
-router.post('/add', function(req, res) {
-  require('./add')(req, res)
+router.post('/new', function(req, res) {
+  require('./new')(req, res)
 })
 
-router.post('/remove', function(req, res) {
-  require('./remove')(req, res)
+router.post('/delete', function(req, res) {
+  require('./delete')(req, res)
 })
 
 

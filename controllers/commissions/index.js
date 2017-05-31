@@ -9,7 +9,9 @@ var errorHandler = require(global.base+'/middleware/errorHandler')
 */
 
 router.get('/load/:id', function(req, res) {
-  global.models.commission.findOne({ _id : req.params.id }).populate({path : 'creator'}).exec(function(err, commission) {
+  global.models.commission.findOne({ _id : req.params.id }).populate({
+    path : 'creator deliverables'
+  }).exec(function(err, commission) {
     if(err || !commission) return res.error('this commission doesnt exist');
     console.log(commission)
     res.render('commission', commission)

@@ -41,6 +41,7 @@ append content
             | tation ullamcorper suscipit lobortis nisl ut ali
 
     #payment
+      h3 #{payment}
       
   #contributers
     .client
@@ -57,47 +58,40 @@ append content
         i.btb.bt-plus
   #deliverables
     .container
-      if deliverables[0]
-        #controller
-          #search.dropShadow
-            i.btb.bt-search
-            input(placeholder='Search ...')
-            i.btb.bt-plus.close
-            #newDeliverable
-              h6 New deliverable
-              i.btb.bt-plus.dropShadow
-        each deliverable in deliverables
-          .deliverable.inactive
-      else
-        h3 you have no deliverables
-        #controller
-          #newDeliverable
-            h6 New deliverable
-            i.btb.bt-plus.dropShadow
-          #saveDeliverable
-            h6 New deliverable
-            i.btb.bt-check.dropShadow
-        .deliverable.new
 
-          .title
-            h6 title
-          i.btb.bt-lock
-          br
-          input#checkin(type='text', placeholder='start date').startDate
-          input#checkout(type='text', placeholder='due date').dueDate
-          textarea(placeholder='description of deliverable').new
-
-      #newDeliverablePage
-        .close
-          i.btb.bt-plus
-        h2 New deliverable
+      #controller
+        #search.dropShadow
+          i.btb.bt-search
+          input(placeholder='Search ...')
+          i.btb.bt-plus.close
+        .newDeliverable
+          h6 New deliverable
+          i.btb.bt-plus.dropShadow
+        .saveDeliverable
+          i.btb.bt-check.dropShadow
+        .deleteNewDeliverable
+          i.btb.bt-plus.dropShadow
+      .deliverable.new
+        input(type='text', placeholder='title').title
+        i.btb.bt-lock
+        br
         input#checkin(type='text', placeholder='start date').startDate
         input#checkout(type='text', placeholder='due date').dueDate
-        br
-        input(placeholder='partition').partition
-        input(placeholder='description').desc
-        button go?
-                
+        input#checkout(type='text', placeholder='partition').partition
+        textarea(placeholder='description of deliverable')
+      
+      if(deliverables[0])
+        each deliverable in deliverables
+          .deliverable(data-id='#{deliverable._id}').inactive
+            h3 title: #{deliverable.title}
+            h3 start date: #{deliverable.dates.start}
+            h3 due date: #{deliverable.dates.due}
+            h3 description: #{deliverable.desc}
+            .deleteDeliverable
+              i.btb.bt-trash
+
+      else
+        h3 you have no deliverables
         //
           h2 New deliverable
           input(placeholder='due date').dueDate

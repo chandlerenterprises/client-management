@@ -157,7 +157,8 @@ body, html {
     width: calc(100% - 100px); }
   #deliverables #controller {
     margin-top: 32px;
-    margin-bottom: 46px; }
+    margin-bottom: 46px;
+    height: 40px; }
     #deliverables #controller .dropShadow {
       -webkit-box-shadow: 0px 2px 12px -4px #000000;
       -moz-box-shadow: 0px 2px 12px -4px #000000;
@@ -197,40 +198,33 @@ body, html {
         -webkit-transform: rotate(-45deg);
         /* Chrome, Safari, Opera */
         transform: rotate(-45deg); }
-    #deliverables #controller #saveDeliverable {
+    #deliverables #controller .saveDeliverable {
       display: none; }
-    #deliverables #controller #newDeliverable, #deliverables #controller #saveDeliverable {
-      float: right; }
-      #deliverables #controller #newDeliverable i, #deliverables #controller #saveDeliverable i {
+    #deliverables #controller .deleteNewDeliverable {
+      display: none; }
+      #deliverables #controller .deleteNewDeliverable i {
+        -ms-transform: rotate(-45deg);
+        /* IE 9 */
+        -webkit-transform: rotate(-45deg);
+        /* Chrome, Safari, Opera */
+        transform: rotate(-45deg); }
+    #deliverables #controller .newDeliverable, #deliverables #controller .saveDeliverable, #deliverables #controller .deleteNewDeliverable {
+      float: right;
+      margin-top: -6px; }
+      #deliverables #controller .newDeliverable i, #deliverables #controller .saveDeliverable i, #deliverables #controller .deleteNewDeliverable i {
         display: inline-block;
         font-size: 20px;
         color: #00354a;
         background: #5b678b;
         padding: 10px;
         border-radius: 50px; }
-      #deliverables #controller #newDeliverable h6, #deliverables #controller #saveDeliverable h6 {
+      #deliverables #controller .newDeliverable h6, #deliverables #controller .saveDeliverable h6, #deliverables #controller .deleteNewDeliverable h6 {
         visibility: hidden;
         display: inline-block; }
-      #deliverables #controller #newDeliverable i:hover, #deliverables #controller #saveDeliverable i:hover {
+      #deliverables #controller .newDeliverable i:hover, #deliverables #controller .saveDeliverable i:hover, #deliverables #controller .deleteNewDeliverable i:hover {
         cursor: pointer; }
-    #deliverables #controller #newDeliverable:hover h6 {
+    #deliverables #controller .newDeliverable:hover h6 {
       visibility: visible; }
-
-#newDeliverablePage {
-  display: none; }
-  #newDeliverablePage i {
-    float: right;
-    display: inline-block;
-    font-size: 20px;
-    color: #00354a;
-    background: #5b678b;
-    padding: 10px;
-    border-radius: 50px;
-    -ms-transform: rotate(-45deg);
-    /* IE 9 */
-    -webkit-transform: rotate(-45deg);
-    /* Chrome, Safari, Opera */
-    transform: rotate(-45deg); }
 
 .deliverable {
   display: inline-block;
@@ -241,7 +235,7 @@ body, html {
   background: #0b4860; }
   .deliverable .title {
     display: inline-block; }
-  .deliverable textarea.new {
+  .deliverable textarea {
     width: calc(100% - 60px);
     height: 150px;
     margin: 30px;
@@ -249,6 +243,9 @@ body, html {
     border: none;
     outline: none;
     background: #1e617c; }
+
+.deliverable.new {
+  display: none; }
 
 .deliverable:hover {
   background: #3683a0; }

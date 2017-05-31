@@ -20,8 +20,10 @@ module.exports = function(req, res) {
 
     model.create({
       email : email,
-      firstName : req.body.firstName.toLowerCase(),
-      lastName : req.body.lastName.toLowerCase(),
+      name : {
+        first : req.body.firstName.toLowerCase(),
+        last : req.body.lastName.toLowerCase()
+      },
       password : Bcrypt.hashSync(req.body.password, Bcrypt.genSaltSync(10)),
       commissions : { created : [], invites : [] }
     }, function(err, results) {
